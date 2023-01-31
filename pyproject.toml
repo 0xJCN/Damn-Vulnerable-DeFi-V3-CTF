@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "Damn-Vulnerable-DeFi-V3-CTF"
 version = "0.1.0"
-description = "Damn Vulnerable DeFi V3 CTF reproduced with Ape and Vyper"
-authors = "0xJCN"
+description = "Damn Vulnerable DeFi V3 CTF implementation with Ape and Vyper"
+authors = ["0xJCN"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
