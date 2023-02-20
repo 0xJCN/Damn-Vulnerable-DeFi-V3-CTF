@@ -20,10 +20,10 @@ ape plugins install .
 
 Run huff scripts:
 ```
-ape run huff hello_ethernaut
+ape run huff unstoppable
 ```
 
 Run vyper scripts:
 ```
-ape run vyper hello_ethernaut
+ape run vyper unstoppable
 ```
