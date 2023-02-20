@@ -44,19 +44,42 @@ def get_block():
     return chain.blocks[-1].number
 
 
-def send_tx(sender, recipient, calldata):
-    w3.eth.default_account = sender
-    tx = w3.eth.send_transaction(dict(to=recipient, data=calldata))
-    return w3.eth.wait_for_transaction_receipt(tx)
+def get_sig(func):
+    return subprocess.getoutput(f"cast sig '{func}'")
 
 
-def deploy_uniswap_contract(filename):
+def send_tx(sender, receiver, calldata, gas=2000000):
+    txn = chain.network_manager.ecosystems["ethereum"].create_transaction(
+        to=receiver,
+        data=calldata,
+        gas=gas,
+    )
+    receipt = sender.call(txn)
+    return receipt
+
+
+def deploy_huff_contract(huff_contract, constructor_args, sender, value=0, gas=2000000):
+    bytecode = subprocess.getoutput(
+        f"huffc -b ./contracts/exploits/huff/{huff_contract}"
+    )
+    deployment_code = bytecode + constructor_args.hex()
+    txn = chain.network_manager.ecosystems["ethereum"].create_transaction(
+        data=deployment_code,
+        value=value,
+        gas=gas,
+    )
+    receipt = sender.call(txn)
+    return receipt.contract_address
+
+
+def deploy_uniswap_contract(filename, sender):
     bytecode = UNI_V1[filename]
-    w3.eth.default_account = w3.eth.accounts[0]
-    tx = w3.eth.send_transaction(dict(data=bytecode))
-    receipt = w3.eth.wait_for_transaction_receipt(tx)
+    txn = chain.network_manager.ecosystems["ethereum"].create_transaction(
+        data=bytecode,
+    )
+    receipt = sender.call(txn)
     return Contract(
-        receipt.contractAddress,
+        receipt.contract_address,
         contract_type=chain.project_manager.get_contract(filename).contract_type,
     )
 
