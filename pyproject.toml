@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "Damn-Vulnerable-DeFi-V3-CTF"
 version = "0.1.0"
-description = "Damn Vulnerable DeFi V3 CTF implementation with Ape and Vyper"
+description = "Damn Vulnerable DeFi V3 CTF implementation with Ape, exploits with Vyper & Huff"
 authors = ["0xJCN"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
 vyper = "^0.3.7"
-eth-ape = "^0.5.9"
+eth-ape = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 

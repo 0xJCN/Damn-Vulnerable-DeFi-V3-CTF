@@ -4,6 +4,7 @@ default_ecosystem: ethereum
 ethereum:
   default_network: local
   local:
+    default_transaction_type: 0
     default_provider: foundry
 
 foundry:
